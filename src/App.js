@@ -3,12 +3,14 @@ import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
 import { ZipCode } from "./features/zipcode";
 import UsersList from "./user-list/UsersList";
+import { Comments } from "./components";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Comments />
         <UsersList />
         <img src={logo} className="App-logo" alt="logo" />
         <ZipCode />

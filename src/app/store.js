@@ -3,6 +3,8 @@ import createSagaMiddleware from "redux-saga";
 
 import counterReducer from "../features/counter/counterSlice";
 import userReducer from "../user-list/reducers";
+import { commentsReducer } from "../components";
+
 import rootSaga from "../user-list/sagas";
 
 let sagaMiddleware = createSagaMiddleware();
@@ -10,6 +12,7 @@ let sagaMiddleware = createSagaMiddleware();
 export const reducer = {
   counter: counterReducer,
   users: userReducer,
+  comments: commentsReducer.default,
 };
 
 const middlewares = (getDefaultMiddleware) =>

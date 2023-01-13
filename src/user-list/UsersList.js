@@ -33,7 +33,7 @@ const UsersListTK = () => {
           </thead>
           <tbody>
             {users &&
-              users.map(({ id, name }) => (
+              users?.map(({ id, name }) => (
                 <tr key={id}>
                   <td data-testid={id}>{name}</td>
                 </tr>
