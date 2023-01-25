@@ -2,17 +2,33 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
 
-import { store } from "../store/store";
+import { store, getStoreWithState } from "../store/store";
 import UsersList from "./UsersList";
 
-function renderWithRedux(component, store = {}) {
-  return { ...render(<Provider store={store}>{component}</Provider>) };
+function renderWithRedux(component, state = {}) {
+  let storeWithState = store;
+
+  if (Object.keys(state).length) {
+    storeWithState = getStoreWithState(state);
+  }
+
+  return { ...render(<Provider store={storeWithState}>{component}</Provider>) };
 }
 
-it("renders with redux", async () => {
-  renderWithRedux(<UsersList />, store);
+describe("renders with redux", () => {
+  it("renders UserList with user list", async () => {
+    renderWithRedux(<UsersList />);
 
-  const elem = await screen.findByTestId(3);
+    const elem = await screen.findByTestId(3);
+  
+    expect(elem).toHaveTextContent("Clementine Bauch");
+  });
 
-  expect(elem).toHaveTextContent("Clementine Bauch");
-});
+  it("renders UserList with 'state.loading' equal true", () => {
+    renderWithRedux(<UsersList />, { users: { data: [], loading: true, error: false } });
+  
+    const text = "Loading...";
+  
+    expect(screen.getByText(text)).toHaveTextContent(text);
+  });
+})

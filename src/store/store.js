@@ -24,12 +24,9 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV !== "production",
 });
 
+export function getStoreWithState(preloadedState) {
+  return configureStore({ reducer, preloadedState, middleware: middlewares, });
+}
+
 sagaMiddleware.run(rootSaga);
 
-// export const setupStore = (preloadedState) => {
-//   return configureStore({
-//     reducer,
-//     preloadedState,
-//     middlewares,
-//   });
-// };
